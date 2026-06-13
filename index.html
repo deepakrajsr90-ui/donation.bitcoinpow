@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations — BitcoinPoW</title>
+    <meta name="description" content="Support BitcoinPoW liquidity and development.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        .btc-gradient {
+            background: linear-gradient(90deg, #f7931a, #ffd700, #ffed4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        body { background: #0a0a0a; }
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .sol-logo {
+            background: linear-gradient(135deg, #14F195, #9945FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="images/btcw.svg" class="w-9 h-9" alt="BTCW">
+                <span class="text-2xl font-bold tracking-tighter">BitcoinPoW</span>
+            </div>
+            <a href="https://bitcoinpow.org" 
+               class="px-6 py-3 border border-white/60 hover:border-amber-400 rounded-2xl transition-all flex items-center gap-2">
+                ← Back to Main Site
+            </a>
+        </div>
+    </nav>
+
+    <div class="pt-28 pb-20 max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-8">
+                Support the <span class="btc-gradient">Real Vision</span>
+            </h1>
+            <p class="text-2xl text-gray-300 italic leading-relaxed">
+                "All donations are used exclusively for exchange liquidity and project development."
+            </p>
+            <p class="text-amber-400 mt-6">— BitcoinPoW Team</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- BTCW -->
+            <div class="glass rounded-3xl p-8 text-center">
+                <img src="images/btcw.svg" class="w-16 h-16 mx-auto mb-4">
+                <h3 class="text-2xl font-bold">BitcoinPoW</h3>
+                <p class="text-amber-400 mb-1">BTCW</p>
+                <p class="text-emerald-400 font-mono text-xl font-semibold mb-6" id="balance-btcw">Loading...</p>
+                <div class="mx-auto mb-6 bg-white p-4 rounded-2xl inline-block" id="qr-btcw"></div>
+                <div id="addr-btcw" class="font-mono text-xs bg-black/50 p-4 rounded-2xl break-all mb-6">
+                    1EzZhyDzLeiTBHTcg1YgeUm7uNdvYSdG87
+                </div>
+                <button onclick="copyAddress('addr-btcw', this)" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-2xl transition">
+                    Copy Address
+                </button>
+            </div>
+
+            <!-- Bitcoin -->
+            <div class="glass rounded-3xl p-8 text-center">
+                <i class="fab fa-bitcoin text-6xl text-orange-500 mb-4"></i>
+                <h3 class="text-2xl font-bold">Bitcoin</h3>
+                <p class="text-amber-400 mb-1">BTC</p>
+                <p class="text-emerald-400 font-mono text-xl font-semibold mb-6" id="balance-btc">Loading...</p>
+                <div class="mx-auto mb-6 bg-white p-4 rounded-2xl inline-block" id="qr-btc"></div>
+                <div id="addr-btc" class="font-mono text-xs bg-black/50 p-4 rounded-2xl break-all mb-6">
+                    bc1qzk2w6amf4z2gyzc3m4fajznxaqy36ukwhzlv0d
+                </div>
+                <button onclick="copyAddress('addr-btc', this)" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-2xl transition">
+                    Copy Address
+                </button>
+            </div>
+
+            <!-- Ethereum -->
+            <div class="glass rounded-3xl p-8 text-center">
+                <i class="fab fa-ethereum text-6xl text-blue-400 mb-4"></i>
+                <h3 class="text-2xl font-bold">Ethereum</h3>
+                <p class="text-amber-400 mb-1">ETH</p>
+                <p class="text-emerald-400 font-mono text-xl font-semibold mb-6" id="balance-eth">Loading...</p>
+                <div class="mx-auto mb-6 bg-white p-4 rounded-2xl inline-block" id="qr-eth"></div>
+                <div id="addr-eth" class="font-mono text-xs bg-black/50 p-4 rounded-2xl break-all mb-6">
+                    0x805B3b7a78FB9C27432128a7F2f0462AaF96278D
+                </div>
+                <button onclick="copyAddress('addr-eth', this)" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-2xl transition">
+                    Copy Address
+                </button>
+            </div>
+
+            <!-- USDT TRC20 -->
+            <div class="glass rounded-3xl p-8 text-center">
+                <span class="text-6xl mb-4 block">₮</span>
+                <h3 class="text-2xl font-bold">USDT</h3>
+                <p class="text-amber-400 mb-1">TRC20</p>
+                <p class="text-emerald-400 font-mono text-xl font-semibold mb-6" id="balance-usdt">Loading...</p>
+                <div class="mx-auto mb-6 bg-white p-4 rounded-2xl inline-block" id="qr-usdt"></div>
+                <div id="addr-usdt" class="font-mono text-xs bg-black/50 p-4 rounded-2xl break-all mb-6">
+                    TB7qACSpYDp8SCyZF6mpBzf5QSbbfkAVGR
+                </div>
+                <button onclick="copyAddress('addr-usdt', this)" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-2xl transition">
+                    Copy USDT (TRC20)
+                </button>
+            </div>
+
+            <!-- Solana -->
+            <div class="glass rounded-3xl p-8 text-center">
+                <div class="sol-logo mx-auto mb-4">◎</div>
+                <h3 class="text-2xl font-bold">Solana</h3>
+                <p class="text-amber-400 mb-1">SOL</p>
+                <p class="text-emerald-400 font-mono text-xl font-semibold mb-6" id="balance-sol">Loading...</p>
+                <div class="mx-auto mb-6 bg-white p-4 rounded-2xl inline-block" id="qr-sol"></div>
+                <div id="addr-sol" class="font-mono text-xs bg-black/50 p-4 rounded-2xl break-all mb-6">
+                    JCUvKXXLhrYx7dm7D3pGkUu6vJWG71GXGibehFraQ85c
+                </div>
+                <button onclick="copyAddress('addr-sol', this)" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-2xl transition">
+                    Copy SOL Address
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clean Footer (no donation disclaimer) -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+            © 2026 BitcoinPoW
+        </div>
+    </footer>
+
+    <script>
+        function generateQR(id, text) {
+            new QRCode(document.getElementById(id), {
+                text: text,
+                width: 180,
+                height: 180,
+                colorDark: "#000000",
+                colorLight: "#ffffff"
+            });
+        }
+
+        function copyAddress(id, btn) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const original = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                setTimeout(() => btn.innerHTML = original, 2000);
+            });
+        }
+
+        async function fetchBalances() {
+            // BTCW
+            fetch('https://www.btcw.space/address/1EzZhyDzLeiTBHTcg1YgeUm7uNdvYSdG87')
+                .then(r => r.text())
+                .then(html => {
+                    const match = html.match(/([\d.]+)\s*BTCW/i);
+                    const bal = match ? parseFloat(match[1]).toFixed(4) : '0.0000';
+                    document.getElementById('balance-btcw').innerHTML = bal + ' BTCW';
+                })
+                .catch(() => document.getElementById('balance-btcw').innerHTML = '—');
+
+            // Bitcoin
+            fetch('https://blockchain.info/q/addressbalance/bc1qzk2w6amf4z2gyzc3m4fajznxaqy36ukwhzlv0d')
+                .then(r => r.text())
+                .then(b => document.getElementById('balance-btc').innerHTML = (parseFloat(b)/100000000).toFixed(4) + ' BTC')
+                .catch(() => document.getElementById('balance-btc').innerHTML = '—');
+
+            // Ethereum
+            fetch('https://api.etherscan.io/api?module=account&action=balance&address=0x805B3b7a78FB9C27432128a7F2f0462AaF96278D&tag=latest')
+                .then(r => r.json())
+                .then(d => document.getElementById('balance-eth').innerHTML = (parseInt(d.result)/1e18).toFixed(4) + ' ETH')
+                .catch(() => document.getElementById('balance-eth').innerHTML = '—');
+
+            // USDT TRC20
+            fetch('https://apilist.tronscan.org/api/account?address=TB7qACSpYDp8SCyZF6mpBzf5QSbbfkAVGR')
+                .then(r => r.json())
+                .then(d => {
+                    const usdt = d.trc20token_balances?.find(t => t.tokenAbbr === 'USDT')?.balance || '0';
+                    document.getElementById('balance-usdt').innerHTML = parseFloat(usdt).toFixed(2) + ' USDT';
+                })
+                .catch(() => document.getElementById('balance-usdt').innerHTML = '—');
+
+            // Solana
+            fetch('https://api.mainnet-beta.solana.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getBalance", params: ["JCUvKXXLhrYx7dm7D3pGkUu6vJWG71GXGibehFraQ85c"] })
+            })
+            .then(r => r.json())
+            .then(d => document.getElementById('balance-sol').innerHTML = (d.result.value / 1e9).toFixed(2) + ' SOL')
+            .catch(() => document.getElementById('balance-sol').innerHTML = '—');
+        }
+
+        window.onload = () => {
+            generateQR("qr-btcw", "1EzZhyDzLeiTBHTcg1YgeUm7uNdvYSdG87");
+            generateQR("qr-btc", "bc1qzk2w6amf4z2gyzc3m4fajznxaqy36ukwhzlv0d");
+            generateQR("qr-eth", "0x805B3b7a78FB9C27432128a7F2f0462AaF96278D");
+            generateQR("qr-usdt", "TB7qACSpYDp8SCyZF6mpBzf5QSbbfkAVGR");
+            generateQR("qr-sol", "JCUvKXXLhrYx7dm7D3pGkUu6vJWG71GXGibehFraQ85c");
+
+            fetchBalances();
+            setInterval(fetchBalances, 30000);
+        };
+    </script>
+</body>
+</html>
